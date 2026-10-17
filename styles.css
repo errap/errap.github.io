@@ -155,16 +155,25 @@ a:hover { text-decoration-thickness: 2px; }
 
   /* Homepage: photo left, text right, photo as tall as the text. */
   .home {
+    width: 100%;
     max-width: 70rem;
     display: grid;
     grid-template-columns: 1.2fr 1fr;
     gap: 4rem;
-    align-items: stretch;
+    align-items: start;
+    container-type: inline-size;
   }
 
+  /* As tall as the text, but never narrower than 0.9:1 so both faces stay
+     in frame when the text wraps onto many lines. */
   .home img {
     height: 100%;
+    max-height: calc((100cqi - 4rem) * 1.2 / 2.2 / 0.9);
     aspect-ratio: auto;
+    object-position: 60% 50%;
     margin-bottom: 0;
   }
+
+  .home > .glow { align-self: start; }
+  .home > img { align-self: stretch; }
 }
