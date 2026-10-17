@@ -1,0 +1,170 @@
+:root {
+  --bg: #141414;
+  --ink: #d6d6d4;
+  --muted: #8a8a88;
+  --accent: #33f7dd;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6rem 1.5rem 3rem;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: "Chivo", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+main {
+  position: relative;
+  z-index: 1;
+  max-width: 38rem;
+  text-align: left;
+}
+
+/* Slow grey sea behind the page (see sea.js). Only shown on wide screens. */
+.sea {
+  display: none;
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Soft, slightly see-through dark area behind text so the waves don't cross it. */
+.glow,
+.panel { position: relative; }
+
+.glow::before,
+.panel::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+}
+
+.glow::before {
+  inset: -5rem -6rem;
+  background: radial-gradient(closest-side, rgb(20 20 20 / 0.72) 65%, transparent);
+}
+
+.panel::before {
+  inset: -2rem -2.5rem;
+  border-radius: 2rem;
+  background: rgb(20 20 20 / 0.72);
+  filter: blur(24px);
+}
+
+/* No sea on small screens, so nothing to hold back. */
+@media (max-width: 959px) {
+  .glow::before,
+  .panel::before { display: none; }
+}
+
+/* Menu */
+.nav {
+  position: absolute;
+  top: 1.75rem;
+  right: 2rem;
+  z-index: 2;
+  display: flex;
+  gap: 2.25rem;
+  font-family: "Inconsolata", ui-monospace, Menlo, monospace;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.nav a {
+  color: #a3a3a1;
+  text-decoration: none;
+}
+
+.nav a:hover,
+.nav a[aria-current="page"] { color: var(--ink); }
+
+img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+  margin-bottom: 2rem;
+}
+
+h1 {
+  margin: 0 0 0.5rem;
+  font-weight: 800;
+  font-size: clamp(2.25rem, 7vw, 3.5rem);
+  line-height: 1;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+}
+
+.meta {
+  margin: 0 0 2rem;
+  font-family: "Inconsolata", ui-monospace, Menlo, monospace;
+  font-size: 0.95rem;
+  font-weight: 400;
+  color: var(--muted);
+}
+
+p { margin: 0 0 1.5rem; }
+
+ul {
+  list-style: disc;
+  margin: 0;
+  padding-left: 1.25rem;
+}
+
+li + li { margin-top: 0.35rem; }
+
+a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+}
+
+a:hover { text-decoration-thickness: 2px; }
+
+/* Homepage text a touch larger than the default. */
+.home { font-size: 1.1875rem; }
+
+/* About page: wide column like erraproject.com/about-us, photos centred
+   and a little narrower than the text. */
+.about {
+  width: 100%;
+  max-width: 70rem;
+}
+
+.about img {
+  max-width: 64rem;
+  margin: 2.5rem auto;
+}
+
+@media (min-width: 960px) {
+  .sea { display: block; }
+
+  /* Homepage: photo left, text right, photo as tall as the text. */
+  .home {
+    max-width: 70rem;
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 4rem;
+    align-items: stretch;
+  }
+
+  .home img {
+    height: 100%;
+    aspect-ratio: auto;
+    margin-bottom: 0;
+  }
+}
